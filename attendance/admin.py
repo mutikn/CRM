@@ -86,6 +86,7 @@ class AttendanceAdmin(admin.ModelAdmin):
 
 class ReportAdmin(admin.ModelAdmin):
     list_display = ('employee', 'date', 'message')
+    readonly_fields = ('date',)
 
     exclude = ('employee',)  # Убираем поле из формы, но оно остается в базе
 
