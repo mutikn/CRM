@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Scanner | LifeDoc</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="logo">
+          <img class="Logo" src="{% static 'assets/img/logo.webp' %}" alt="" />
+        </div>
+        <h1 id="headTitle">Please Read Your Access QR</h1>
+        <div class="qrReader"><div id="reader"></div></div>
+        <div class="loading">
+          <p id="result">Scanning the QR code</p>
+          <div class="loader"></div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>
+        © All Rights Reserved. LifeDoc Company. Developed by
+        <a href="https://github.com/mutikn">Mutikn</a> &
+        <a href="https://github.com/nurxan02">nurxan02</a>
+      </p>
+    </footer>
+    <script src="{% static 'assets/js/scripts.js' %}"></script>
+  </body>
+</html>

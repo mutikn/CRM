@@ -1,0 +1,103 @@
+body {
+  background-color: rgb(119, 210, 115);
+}
+main {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: rgb(234, 234, 202);
+  border-radius: 20px;
+}
+p,
+h1 {
+  color: rgb(144, 136, 88);
+}
+.Logo {
+  width: 300px;
+  height: auto;
+}
+.container {
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo,
+img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 90px;
+}
+#reader {
+  width: 400px;
+  display: flex;
+}
+#result {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.qrReader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  margin: 20px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.loader {
+  width: 10px;
+  padding-bottom: 10px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #000 90%, #0000) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+
+footer > p,
+a {
+  text-align: center;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 70vw;
+  }
+  .Logo {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 90vw;
+  }
+  .Logo {
+    width: 60vw;
+  }
+  .container > .qrReader {
+    width: 90vw;
+  }
+}
