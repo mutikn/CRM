@@ -37,6 +37,14 @@ class CustomUserAdmin(UserAdmin):
     inlines = [QrCodeInline, AttendanceInline, ReportInline]  # Добавляем ReportInline
     list_display = UserAdmin.list_display + ('qr_code_display',)  # Добавляем отображение QR-кода
 
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super().get_fieldsets(request, obj)
+
+        if not request.user.is_superuser:
+            return [fs for fs in fieldsets if fs[0] not in ("Permissions", "Important dates")]
+
+        return fieldsets
+
     def qr_code_display(self, obj):
         return obj.qrcode.qr_code if hasattr(obj, 'qrcode') else 'No QR Code'
     qr_code_display.short_description = 'QR Code'

@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import Client, Offer, ClientOffer, OfferImage, ClientComment, ClientOfferComment
 from django.utils.html import format_html
 
-admin.site.site_header = "LifeDoc Estate Admin"
-admin.site.site_title = "Real Estate Administration for LifeDoc"
-admin.site.index_title = "Welcome to LifeDoc Estate Administration"
+admin.site.site_header = "LifeDoc"
+admin.site.site_title = "LifeDoc"
+admin.site.index_title = "LifeDoc"
 
 class ClientOfferCommentInline(admin.TabularInline):
     model = ClientOfferComment

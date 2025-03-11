@@ -74,7 +74,8 @@ class Offer(models.Model):
     clients = models.ManyToManyField(Client, through='ClientOffer', related_name="offers", blank=True)
 
     def __str__(self):
-        return f"{self.host_name}"
+        return f"Comment on {self.offer.offer.host_name}"
+
 
     class Meta:
         ordering = ['-active', '-price']
@@ -114,7 +115,9 @@ class ClientOfferComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Comment on {self.offer.host_name}"
+        return f"Comment on {self.offer.offer.host_name}"
+
+
 
     class Meta:
         ordering = ['-created_at']
@@ -127,7 +130,8 @@ class ClientComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Comment on {self.offer.host_name}"
+        return f"Comment on {self.offer.name}"
+
 
     class Meta:
         ordering = ['-created_at']
