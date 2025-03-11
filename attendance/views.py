@@ -7,6 +7,9 @@ from django.shortcuts import render
 from attendance.models import QrCode, Attendance
 from attendance.serializers import EmployeeSerializer, AttendanceSerializer
 
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 logger = logging.getLogger(__name__)
 
 class EmployeeViewSet(viewsets.ModelViewSet):
@@ -16,6 +19,9 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 class AttendanceViewSet(viewsets.ModelViewSet):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
+
+    @method_decorator(csrf_exempt)
+    @action(detail=False, methods=['post'])
 
     @action(detail=False, methods=['post'])
     def scan_qr(self, request):

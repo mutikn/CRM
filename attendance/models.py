@@ -4,6 +4,8 @@ import qrcode
 from io import BytesIO
 from django.core.files.base import ContentFile
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
+
 
 class QrCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -12,7 +12,7 @@
     <main>
       <div class="container">
         <div class="logo">
-          <img class="Logo" src="{% static 'assets/img/logo.webp' %}" alt="" />
+          <img class="Logo" src="{% static 'assets/img/logo.webp' %}" alt="Logo" />
         </div>
         <h1 id="headTitle">Please Read Your Access QR</h1>
         <div class="qrReader"><div id="reader"></div></div>
@@ -22,6 +22,10 @@
         </div>
       </div>
     </main>
+
+    <!-- CSRF Token (Django) -->
+    <form id="csrf-form">{% csrf_token %}</form>
+
     <footer>
       <p>
         © All Rights Reserved. LifeDoc Company. Developed by
@@ -29,6 +33,7 @@
         <a href="https://github.com/nurxan02">nurxan02</a>
       </p>
     </footer>
+    
     <script src="{% static 'assets/js/scripts.js' %}"></script>
   </body>
 </html>
