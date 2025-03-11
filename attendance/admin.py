@@ -77,8 +77,11 @@ class AttendanceAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
         return False  # Обычные пользователи не могут добавлять записи
 
+    # def has_delete_permission(self, request, obj=None):
+    #     return False  # Обычные пользователи не могут удалять записи
+    
     def has_delete_permission(self, request, obj=None):
-        return False  # Обычные пользователи не могут удалять записи
+        return request.user.is_superuser
 
 
 class ReportAdmin(admin.ModelAdmin):
