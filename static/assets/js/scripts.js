@@ -1,6 +1,6 @@
 "use strict";
 
-// Функция успешного сканирования QR
+
 function onScanSuccess(decodedText) {
     document.getElementById("result").innerText = "Scanned QR: " + decodedText;
     sendToServer(decodedText);
@@ -11,7 +11,7 @@ function onScanSuccess(decodedText) {
     });
 }
 
-// Запуск сканера QR-кодов
+
 let html5QrCode = new Html5Qrcode("reader");
 html5QrCode.start(
     { facingMode: "environment" },
@@ -19,19 +19,18 @@ html5QrCode.start(
     onScanSuccess
 );
 
-// Функция получения CSRF-токена
+
 function getCSRFToken() {
     let tokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
     return tokenElement ? tokenElement.value : "";
 }
 
-// Функция отправки данных на сервер
 function sendToServer(qrData) {
     let jsonData = { username: qrData.trim() };
 
     console.log("Sending data:", jsonData);
 
-    fetch("lifedocit.pl/api/attendance/scan_qr/", {
+    fetch("https://lifedocit.pl/api/attendance/scan_qr/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
