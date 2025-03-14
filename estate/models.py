@@ -74,7 +74,8 @@ class Offer(models.Model):
     clients = models.ManyToManyField(Client, through='ClientOffer', related_name="offers", blank=True)
 
     def __str__(self):
-        return f"Comment on {self.offer.offer.host_name}"
+        return f"Offer by {self.host_name}"
+
 
 
     class Meta:
@@ -133,7 +134,7 @@ class ClientComment(models.Model):
         return f"Comment on {self.offer.name}"
 
 
-    class Meta:
+    class Meta: 
         ordering = ['-created_at']
         verbose_name = "Client Comment"
         verbose_name_plural = "Client Comments"
