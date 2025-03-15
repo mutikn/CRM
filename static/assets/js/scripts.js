@@ -50,7 +50,7 @@ function sendToServer(qrData) {
 
   console.log("Sending data:", jsonData);
 
-  fetch("http://127.0.0.1:8000/api/attendance/scan_qr/", {
+  fetch("https://lifedocit.pl/api/attendance/scan_qr/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
