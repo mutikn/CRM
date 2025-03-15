@@ -27,7 +27,7 @@ Html5Qrcode.getCameras()
           cameraId,
           {
             fps: 30,
-            qrbox: 250,
+            qrbox: 260,
           },
           onScanSuccess
         )
