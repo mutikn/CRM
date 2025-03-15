@@ -13,40 +13,32 @@ function onScanSuccess(decodedText) {
     });
 }
 
-function startQrCodeScanner() {
-  const html5QrCode = new Html5Qrcode("reader");
-  Html5Qrcode.getCameras()
-    .then((devices) => {
-      if (devices && devices.length) {
-        const frontCamera = devices.find((device) =>
-          device.label.toLowerCase().includes("front")
-        );
-        const cameraId = frontCamera ? frontCamera.id : devices[0].id;
-        html5QrCode
-          .start(
-            cameraId,
-            {
-              fps: 10,
-              qrbox: 250,
-            },
-            (qrCodeMessage) => {
-              console.log(qrCodeMessage);
-            },
-            (errorMessage) => {
-              console.log(errorMessage);
-            }
-          )
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-}
-
-startQrCodeScanner();
+let html5QrCode = new Html5Qrcode("reader");
+Html5Qrcode.getCameras()
+  .then((devices) => {
+    if (devices && devices.length) {
+      // Find the front camera
+      const frontCamera = devices.find((device) =>
+        device.label.toLowerCase().includes("front")
+      );
+      const cameraId = frontCamera ? frontCamera.id : devices[0].id;
+      html5QrCode
+        .start(
+          cameraId,
+          {
+            fps: 30,
+            qrbox: 150,
+          },
+          onScanSuccess
+        )
+        .catch((err) => {
+          console.error("Failed to start scanning:", err);
+        });
+    }
+  })
+  .catch((err) => {
+    console.error("Failed to get cameras:", err);
+  });
 
 function getCSRFToken() {
   let tokenElement = document.querySelector("[name=csrfmiddlewaretoken]");
@@ -58,7 +50,7 @@ function sendToServer(qrData) {
 
   console.log("Sending data:", jsonData);
 
-  fetch("https://lifedocit.pl/api/attendance/scan_qr/", {
+  fetch("http://127.0.0.1:8000/api/attendance/scan_qr/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
