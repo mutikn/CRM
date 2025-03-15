@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QR Code Scanner | LifeDoc</title>
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
-    <script src="{% static 'assets/js/html5-qrcode.min.js' %}"></script>
   </head>
   <body>
     <main>
       <div class="container">
         <div class="logo">
-          <img class="Logo" src="{% static 'assets/img/logo.webp' %}" alt="Logo" />
+          <img
+            class="Logo"
+            src="{% static 'assets/img/logo.webp' %}"
+            alt="Logo"
+          />
         </div>
         <h1 id="headTitle">Please Read Your Access QR</h1>
         <div class="qrReader"><div id="reader"></div></div>
@@ -33,7 +36,8 @@
         <a href="https://github.com/nurxan02">nurxan02</a>
       </p>
     </footer>
-    
+    <script src="{% static 'assets/js/html5-qrcode.min.js' %}"></script>
+
     <script src="{% static 'assets/js/scripts.js' %}"></script>
   </body>
 </html>
