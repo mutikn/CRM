@@ -13,12 +13,40 @@ function onScanSuccess(decodedText) {
     });
 }
 
-let html5QrCode = new Html5Qrcode("reader");
-html5QrCode.start(
-  { facingMode: "environment" },
-  { fps: 30, qrbox: 150 },
-  onScanSuccess
-);
+function startQrCodeScanner() {
+  const html5QrCode = new Html5Qrcode("reader");
+  Html5Qrcode.getCameras()
+    .then((devices) => {
+      if (devices && devices.length) {
+        const frontCamera = devices.find((device) =>
+          device.label.toLowerCase().includes("front")
+        );
+        const cameraId = frontCamera ? frontCamera.id : devices[0].id;
+        html5QrCode
+          .start(
+            cameraId,
+            {
+              fps: 10,
+              qrbox: 250,
+            },
+            (qrCodeMessage) => {
+              console.log(qrCodeMessage);
+            },
+            (errorMessage) => {
+              console.log(errorMessage);
+            }
+          )
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+startQrCodeScanner();
 
 function getCSRFToken() {
   let tokenElement = document.querySelector("[name=csrfmiddlewaretoken]");
