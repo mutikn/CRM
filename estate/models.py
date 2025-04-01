@@ -34,8 +34,11 @@ class Client(models.Model):
     phone = models.CharField(max_length=15, unique=True)
     nationality = models.CharField(max_length=50)
     comment = models.TextField(blank=True)
+    passport_serial = models.CharField(max_length=50, unique=True)
+    passport_expiry_date = models.DateField( blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
+    contract_file = models.FileField(upload_to='contracts/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -46,9 +49,11 @@ class Client(models.Model):
         verbose_name_plural = "Clients"
 
 
+
+
 class Offer(models.Model):
     host_name = models.CharField(max_length=200)
-    phone = models.CharField(max_length=15, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True)
     email = models.EmailField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)
     
@@ -97,9 +102,21 @@ class ClientOffer(models.Model):
         verbose_name = "Client Offer"
         verbose_name_plural = "Client Offers"
 
+
+
+import os
+import uuid
+def rename_offer_image(instance, filename):
+
+    ext = filename.split('.')[-1]
+    short_uuid = str(uuid.uuid4())[:8]
+    new_filename = f"{instance.offer.host_name}_room_count-{instance.offer.rooms}_{short_uuid}.{ext}"
+
+    return os.path.join('images/', new_filename)
+
 class OfferImage(models.Model):
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to=rename_offer_image)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -138,3 +155,14 @@ class ClientComment(models.Model):
         ordering = ['-created_at']
         verbose_name = "Client Comment"
         verbose_name_plural = "Client Comments"
+
+class DefaultContract(models.Model):
+    name = models.CharField(max_length=200, help_text="Enter a name for the contract")
+    file = models.FileField(upload_to='default_contracts/', help_text="Upload a PDF file")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Default Contract"
+        verbose_name_plural = "Default Contracts"
