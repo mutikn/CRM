@@ -56,7 +56,6 @@ class Offer(models.Model):
     phone = models.CharField(max_length=15, blank=True)
     email = models.EmailField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)
-    
     address_text = models.CharField(max_length=200, blank=True, null=True)
     ulica = models.CharField(max_length=200, blank=True, null=True)
     numer_budynku = models.CharField(max_length=20, blank=True, null=True)
@@ -66,16 +65,13 @@ class Offer(models.Model):
     powiat = models.CharField(max_length=200, blank=True, null=True)
     gmina = models.CharField(max_length=200, blank=True, null=True)
     miejscowość = models.CharField(max_length=200, blank=True, null=True)
-    
     price = models.FloatField(blank=True, null=True)
     active = models.BooleanField(default=True)
     rooms = models.PositiveIntegerField(default=1)
     deposit_price = models.FloatField(blank=True, null=True)
     deposit_duration = models.FloatField(blank=True, null=True)
-    
     offer_type = models.CharField(max_length=20, choices=OFFER_TYPE_CHOICES, default='other')
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES, default='unknown')
-
     clients = models.ManyToManyField(Client, through='ClientOffer', related_name="offers", blank=True)
 
     def __str__(self):
@@ -111,7 +107,6 @@ def rename_offer_image(instance, filename):
     ext = filename.split('.')[-1]
     short_uuid = str(uuid.uuid4())[:8]
     new_filename = f"{instance.offer.host_name}_room_count-{instance.offer.rooms}_{short_uuid}.{ext}"
-
     return os.path.join('images/', new_filename)
 
 class OfferImage(models.Model):

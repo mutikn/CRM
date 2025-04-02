@@ -1,12 +1,27 @@
 from django.contrib import admin
 from .models import Client, Offer, ClientOffer, OfferImage, ClientComment, ClientOfferComment,DefaultContract
 from django.utils.html import format_html
-
+import random
+import string
 
 
 admin.site.site_header = "LifeDoc"
 admin.site.site_title = "LifeDoc"
 admin.site.index_title = "LifeDoc"
+
+def generate_random_email(host_name):
+    first_name = ''.join(random.choices(string.ascii_lowercase, k=5))
+    last_name = ''.join(random.choices(string.ascii_lowercase, k=5))
+    return f"{first_name}.{last_name}@mail.com"
+
+@admin.action(description="Assign random email to offers without email")
+def assign_random_email(modeladmin, request, queryset):
+    for offer in queryset:
+        if not offer.email: 
+            offer.email = generate_random_email(offer.host_name)
+            offer.save()
+    modeladmin.message_user(request, "Random emails assigned successfully!")
+
 
 class ClientOfferCommentInline(admin.TabularInline):
     model = ClientOfferComment
@@ -41,6 +56,7 @@ class OfferAdmin(admin.ModelAdmin):
     list_display = ('host_name', 'phone', 'email', 'price', 'active', 'offer_type', 'condition', 'main_image')
     search_fields = ('host_name', 'email', 'phone')
     list_filter = ('active', 'offer_type', 'condition')
+    actions = [assign_random_email] 
     inlines = (OfferImageInline,)
 
     def main_image(self, obj):
@@ -55,8 +71,6 @@ class ClientOfferAdmin(admin.ModelAdmin):
     search_fields = ('client__name', 'offer__host_name')
     list_filter = ('status', 'created_at')
     inlines = (ClientOfferCommentInline,)
-
-
 
 @admin.register(DefaultContract)
 class DefaultContractAdmin(admin.ModelAdmin):
