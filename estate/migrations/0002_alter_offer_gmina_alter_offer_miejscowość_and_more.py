@@ -30,4 +30,4 @@ class Migration(migrations.Migration):
             name='województwo',
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
-    ]
+    ] 
