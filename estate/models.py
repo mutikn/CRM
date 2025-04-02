@@ -34,7 +34,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=15, unique=True)
     nationality = models.CharField(max_length=50)
     comment = models.TextField(blank=True)
-    passport_serial = models.CharField(max_length=50, unique=True)
+    passport_serial = models.CharField(max_length=50, )
     passport_expiry_date = models.DateField( blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
