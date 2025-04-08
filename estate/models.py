@@ -30,12 +30,12 @@ OFFER_TYPE_CHOICES = [
 
 class Client(models.Model):
     name = models.CharField(max_length=200)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=15, unique=True)
     nationality = models.CharField(max_length=50)
     comment = models.TextField(blank=True)
     passport_serial = models.CharField(max_length=50, )
-    passport_expiry_date = models.DateField( blank=True)
+    passport_expiry_date = models.DateField( blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     contract_file = models.FileField(upload_to='contracts/', blank=True, null=True)
